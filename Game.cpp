@@ -1,5 +1,6 @@
 #include <iostream>
 #include <conio.h>
+#include <string>
 
 using namespace std;
 
@@ -9,7 +10,7 @@ int width = 40;
 int height = 20;
 
 int snakeX, snakeY, fruitX, fruitY;
-enum eDirection {Stop, LEFT, RIGHT, UP, DOWN};
+enum eDirection { Stop, LEFT, RIGHT, UP, DOWN };
 eDirection dir;
 
 void Setup() {
@@ -28,16 +29,18 @@ void Draw() {
     }
     cout << endl;
     for (int y = 0; y < height; y++) {
-        
+
         for (int x = 0; x < width; x++) {
-            if (x == 0 || x == width -1) {
+            if (x == 0 || x == width - 1) {
                 cout << '|';
             }
             if (x == snakeX && y == snakeY) {
                 cout << '#';
-            } else if (x == fruitX && y == fruitY) {
+            }
+            else if (x == fruitX && y == fruitY) {
                 cout << 'F';
-            } else {
+            }
+            else {
                 cout << ' ';
             }
         }
@@ -45,18 +48,37 @@ void Draw() {
     }
 
     int end = 0;
-    while (end <= width){
+    while (end <= width) {
         cout << '-';
         end++;
     }
     cout << endl;
-    
+
 }
 
 void Input() {
 
-    while (_kbhit()) {
-        std::cout << _getch();
+    if (_kbhit()) {
+        int k = _getch();
+        if (k == 0 || k == 224) {
+            k = _getch();
+        }
+
+        switch (k) {
+        case 72:
+            dir = UP;
+            break;
+        case 75:
+            dir = LEFT;
+            break;
+        case 77:
+            dir = DOWN;
+            break;
+        case 80:
+            dir = RIGHT;
+            break;
+        }
+        std::cout << dir << std::endl;
     }
 
 }
@@ -67,9 +89,11 @@ void Logic() {
 
 int main() {
     Setup();
-    while(!GameOver) {
-        Draw();
+    //Draw();
+    //Input();
+    while (!GameOver) {
+        //Draw();
         Input();
-        Logic();
+        //Logic();
     }
 }
