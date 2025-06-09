@@ -55,6 +55,10 @@ void Draw() {
 
 void Input() {
 
+    while (_kbhit()) {
+        std::cout << _getch();
+    }
+
 }
 
 void Logic() {
